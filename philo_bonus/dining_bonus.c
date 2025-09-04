@@ -6,15 +6,15 @@
 /*   By: skimura <skimura@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 20:33:03 by skimura           #+#    #+#             */
-/*   Updated: 2025/08/28 18:22:02 by skimura          ###   ########.fr       */
+/*   Updated: 2025/09/03 18:25:10 by skimura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo_bonus.h"
+#include "philo_bonus.h"
 
 static void	philo_child(t_table *table, t_philo *philo);
 static void	wait_philo(t_table *table);
-static void	table__stop(t_table *table);
+static void	stop_table(t_table *table);
 
 void	dining(t_table *table)
 {
@@ -58,9 +58,9 @@ static void	wait_philo(t_table *table)
 	{
 		if (waitpid(-1, &status, 0) == -1)
 			break ;
-		if (WIFEXITED(status) && WEXITSTATUS(status) == 1)
+		if (WIFEXITED(status) && WEXITSTATUS(status) == EXIT_FAILURE)
 		{
-			table__stop(table);
+			stop_table(table);
 			table->dead_flag = 1;
 			break ;
 		}
@@ -70,7 +70,7 @@ static void	wait_philo(t_table *table)
 		printf("/* All philo is full */\n");
 }
 
-static void	table__stop(t_table *table)
+static void	stop_table(t_table *table)
 {
 	int	i;
 

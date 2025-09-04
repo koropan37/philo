@@ -6,7 +6,7 @@
 /*   By: skimura <skimura@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 20:31:04 by skimura           #+#    #+#             */
-/*   Updated: 2025/08/28 22:24:00 by skimura          ###   ########.fr       */
+/*   Updated: 2025/09/04 20:02:40 by skimura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <unistd.h>
 
 # define PHILO_MAX 200
+# define DEAD 1
 
 typedef struct s_philo
 {
@@ -48,8 +49,6 @@ typedef struct s_philo
 	sem_t		*dead_sem;
 	sem_t		*print_sem;
 	sem_t		*meal_sem;
-	sem_t		*start_sem;
-
 }				t_philo;
 
 typedef struct s_table
@@ -66,8 +65,6 @@ typedef struct s_table
 	sem_t		*dead_sem;
 	sem_t		*print_sem;
 	sem_t		*meal_sem;
-	sem_t		*start_sem;
-
 }				t_table;
 
 // parse

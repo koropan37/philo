@@ -6,11 +6,11 @@
 /*   By: skimura <skimura@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 20:32:47 by skimura           #+#    #+#             */
-/*   Updated: 2025/08/28 18:59:09 by skimura          ###   ########.fr       */
+/*   Updated: 2025/09/03 17:42:50 by skimura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo_bonus.h"
+#include "philo_bonus.h"
 
 static void	*monitoring(t_philo *philo);
 void		print_death(t_philo *philo, int id);
@@ -42,7 +42,7 @@ static void	*monitoring(t_philo *philo)
 		{
 			sem_post(philo->meal_sem);
 			print_death(philo, philo->id);
-			exit(1);
+			exit(EXIT_FAILURE);
 		}
 		sem_post(philo->meal_sem);
 		my_usleep(1);
@@ -60,7 +60,7 @@ void	print_death(t_philo *philo, int id)
 	{
 		time = get_time_of_now() - philo->start_time;
 		printf("%zu %d is died\n", time, id);
-		*philo->dead = 1;
+		*philo->dead = DEAD;
 	}
 	sem_post(philo->print_sem);
 }

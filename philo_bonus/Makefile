@@ -6,49 +6,34 @@
 #    By: skimura <skimura@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/11 21:24:00 by skimura           #+#    #+#              #
-#    Updated: 2025/08/28 18:09:05 by skimura          ###   ########.fr        #
+#    Updated: 2025/09/03 17:36:55 by skimura          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-NAME		= philo
-BONUS_NAME	= philo_bonus
+NAME		=  philo_bonus
 
 SRC			= \
-				src/main.c \
-				src/utils.c \
-				src/parse.c \
-				src/init_table.c \
-				src/init_philo.c \
-				src/dining.c \
-				src/monitoring.c \
-				src/routine.c \
-				src/action.c \
-
-BONUS_SRC	= \
-				bonus/main_bonus.c \
-				bonus/utils_bonus.c \
-				bonus/parse_bonus.c \
-				bonus/init_table_bonus.c \
-				bonus/init_philo_bonus.c \
-				bonus/dining_bonus.c \
-				bonus/monitoring_bonus.c \
-				bonus/routine_bonus.c \
-				bonus/action_bonus.c \
-				bonus/cleanup_bonus.c \
+				main_bonus.c \
+				utils_bonus.c \
+				parse_bonus.c \
+				init_table_bonus.c \
+				init_philo_bonus.c \
+				dining_bonus.c \
+				monitoring_bonus.c \
+				routine_bonus.c \
+				action_bonus.c \
+				cleanup_bonus.c \
 
 OBJ_DIR		= obj
-BONUS_DIR 	= obj_bonus
-INC_DIR	 	= include
 
 OBJS		= $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
-BONUS_OBJS	= $(addprefix $(BONUS_DIR)/, $(notdir $(BONUS_SRC:.c=.o)))
 
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
-CFLAGS		+= -g -O1 -fsanitize=thread
-#CFLAGS		+= -g -O1 -fsanitize=address
-#setarch $(uname -m) -R ./philo
+#CFLAGS		+= -g -O1 -fsanitize=thread
+CFLAGS		+= -g -O1 -fsanitize=address
+#setarch $(uname -m) -R ./philo_bonus
 #valgrind --tool=helgrind
 RM			= rm -f
 INCLUDES	= -I$(INC_DIR)
@@ -65,50 +50,30 @@ WHITE	= \033[0;37m
 MAGENTA	= \033[0;35m
 
 
-
-
-.PHONY: all bonus clean fclean re
-
+.PHONY: all clean fclean re
 
 all: $(OBJ_DIR) $(NAME)
 
-
-bonus: $(BONUS_DIR) $(BONUS_OBJS)
-	@echo  "$(BOLD)$(GREEN)[INFO]$(CYAN) Building $(WHITE)$(BONUS_NAME)..."
-	@$(CC) $(CFLAGS) $(INCLUDES) $(BONUS_OBJS)  -o $(BONUS_NAME)
-	@echo "$(GREEN)[OK]$(BLUE) Bonus build completed!$(RESET)"
-
-
-
 $(NAME): $(OBJS)
 	@echo  "$(BOLD)$(GREEN)[INFO]$(CYAN) Building $(WHITE)$(NAME)..."
-	@$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 	@echo "$(GREEN)[OK]$(BLUE) Build completed!$(RESET)"
 
-
-$(OBJ_DIR)/%.o: src/%.c
+$(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
-$(BONUS_DIR)/%.o: bonus/%.c
-	@mkdir -p $(BONUS_DIR)
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
-$(BONUS_DIR):
-	@mkdir -p $(BONUS_DIR)
-
-
 clean:
 	@echo  "$(BOLD)$(YELLOW)[INFO]$(MAGENTA) Cleaning $(NAME)..."
-	@$(RM) $(OBJS) $(BONUS_OBJS)
-	@$(RM) -r $(OBJ_DIR) $(BONUS_DIR) 2>/dev/null || true
+	@$(RM) $(OBJS)
+	@$(RM) -r $(OBJ_DIR) 2>/dev/null || true
 	@echo "$(RED)[DONE]$(RESET)"
 
 fclean: clean
-	@$(RM) $(NAME) $(BONUS_NAME)
-	@echo "$(BOLD)$(YELLOW)[DELETE]$(RED)All clean $(NAME) and $(BONUS_NAME)$(RESET)"
+	@$(RM) $(NAME)
+	@echo "$(BOLD)$(YELLOW)[DELETE]$(RED)All clean $(NAME)$(RESET)"
 
 re: fclean all

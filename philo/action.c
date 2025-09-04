@@ -6,11 +6,11 @@
 /*   By: skimura <skimura@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 21:04:16 by skimura           #+#    #+#             */
-/*   Updated: 2025/08/27 23:18:29 by skimura          ###   ########.fr       */
+/*   Updated: 2025/09/04 19:56:08 by skimura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "philo.h"
 
 static int	select_fork(t_philo *philo);
 
@@ -20,7 +20,7 @@ void	print_philo(t_philo *philo, int id, char *str)
 
 	pthread_mutex_lock(philo->print_mutex);
 	pthread_mutex_lock(philo->dead_mutex);
-	if (*philo->dead == 1)
+	if (*philo->dead == DEAD)
 	{
 		pthread_mutex_unlock(philo->dead_mutex);
 		pthread_mutex_unlock(philo->print_mutex);
@@ -56,11 +56,11 @@ void	eating(t_philo *philo)
 		return ;
 	}
 	pthread_mutex_lock(philo->meal_mutex);
-	philo->eating = 1;
+	philo->eating = EATING;
 	print_philo(philo, philo->id, "is eating");
 	philo->last_meal = get_time_of_now();
 	philo->eaten++;
-	philo->eating = 0;
+	philo->eating = FINISH;
 	pthread_mutex_unlock(philo->meal_mutex);
 	my_usleep(philo->time_to_eat);
 	pthread_mutex_unlock(philo->right_fork);

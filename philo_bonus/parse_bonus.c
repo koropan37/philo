@@ -1,38 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   parse_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skimura <skimura@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/12 17:43:34 by skimura           #+#    #+#             */
-/*   Updated: 2025/08/19 23:08:49 by skimura          ###   ########.fr       */
+/*   Created: 2025/08/23 17:30:32 by skimura           #+#    #+#             */
+/*   Updated: 2025/09/01 19:44:40 by skimura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "philo_bonus.h"
 
-static int	validate(int ac, char *av[]);
-static int	usage_error(void);
+static void	validate(int ac, char *av[]);
+static void	usage_error(void);
 static int	allow_digits(int ac, char *av[], t_table *table);
 static void	atoi_args(int ac, char *av[], t_table *table);
 
-int	parse(int ac, char *av[], t_table *table)
+void	parse(int ac, char *av[], t_table *table)
 {
-	if (validate(ac, av) != 0)
-		return (1);
+	validate(ac, av);
 	if (allow_digits(ac, av, table) != 0)
-		return (1);
-	return (0);
+		exit(EXIT_FAILURE);
 }
 
-static int	validate(int ac, char *av[])
+static void	validate(int ac, char *av[])
 {
 	int	i;
 	int	j;
 
 	if (ac != 5 && ac != 6)
-		return (usage_error());
+		usage_error();
 	i = 1;
 	while (i < ac)
 	{
@@ -42,20 +40,19 @@ static int	validate(int ac, char *av[])
 			if (!ft_isdigit(av[i][j]))
 			{
 				write(2, "Arguments allowed only digits", 28);
-				return (-1);
+				exit(EXIT_FAILURE);
 			}
 			j++;
 		}
 		i++;
 	}
-	return (0);
 }
 
-static int	usage_error(void)
+static void	usage_error(void)
 {
 	write(2, "Usage: ./philo <num_of_philo> <die> <eat> <sleep> (must_eat)\n",
 		62);
-	return (1);
+	exit(EXIT_FAILURE);
 }
 
 static int	allow_digits(int ac, char *av[], t_table *table)

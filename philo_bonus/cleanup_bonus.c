@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   cleanup_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skimura <skimura@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/11 19:06:20 by skimura           #+#    #+#             */
-/*   Updated: 2025/08/20 17:32:23 by skimura          ###   ########.fr       */
+/*   Created: 2025/08/27 18:23:00 by skimura           #+#    #+#             */
+/*   Updated: 2025/09/04 20:03:18 by skimura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "philo_bonus.h"
 
-int	main(int ac, char *av[])
+void	close_all_sem(t_table *table)
 {
-	t_table	table;
-	t_philo	philo[PHILO_MAX];
+	sem_close(table->forks);
+	sem_close(table->dead_sem);
+	sem_close(table->print_sem);
+	sem_close(table->meal_sem);
+}
 
-	memset(&table, 0, sizeof(table));
-	memset(philo, 0, sizeof(philo));
-	if (parse(ac, av, &table) != 0)
-		return (1);
-	init_table(&table, philo);
-	if (init_philo(&table, philo) != 0)
-		return (1);
-	if (dining(&table) != 0)
-		return (1);
-	return (0);
+void	free_close_exit(t_table *table)
+{
+	free(table->pids);
+	close_all_sem(table);
+	exit(EXIT_FAILURE);
 }

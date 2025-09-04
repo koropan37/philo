@@ -6,11 +6,11 @@
 /*   By: skimura <skimura@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 16:23:52 by skimura           #+#    #+#             */
-/*   Updated: 2025/08/28 19:00:24 by skimura          ###   ########.fr       */
+/*   Updated: 2025/09/01 19:44:49 by skimura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo_bonus.h"
+#include "philo_bonus.h"
 
 int	ft_isdigit(int c)
 {

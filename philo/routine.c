@@ -6,11 +6,11 @@
 /*   By: skimura <skimura@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 18:17:50 by skimura           #+#    #+#             */
-/*   Updated: 2025/08/22 19:21:33 by skimura          ###   ########.fr       */
+/*   Updated: 2025/09/04 20:00:53 by skimura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "philo.h"
 
 static void	wait_start(t_philo *philo);
 static void	even_case(t_philo *philo);
@@ -58,19 +58,19 @@ static void	odd_case(t_philo *philo)
 {
 	size_t	wait_time;
 
-	if ((philo->id - 1) % 2 != 0)
-		wait_time = philo->time_to_eat / (philo->num_of_philo - 1) * ((2
-					* philo->num_of_philo) - philo->id);
+	if ((philo->id - 1) % 2 == 0)
+		wait_time = philo->time_to_eat / (philo->num_of_philo - 1) * (philo->id
+				- 1);
 	else
 		wait_time = philo->time_to_eat / (philo->num_of_philo - 1)
-			* (philo->num_of_philo - philo->id);
+			* ((philo->num_of_philo - 1) + (philo->id - 1));
 	my_usleep(wait_time);
 }
 
 int	is_dead(t_philo *philo)
 {
 	pthread_mutex_lock(philo->dead_mutex);
-	if (*philo->dead == 1)
+	if (*philo->dead == DEAD || *philo->dead == FULL)
 		return (pthread_mutex_unlock(philo->dead_mutex), 1);
 	pthread_mutex_unlock(philo->dead_mutex);
 	return (0);

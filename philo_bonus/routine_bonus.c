@@ -6,11 +6,11 @@
 /*   By: skimura <skimura@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 20:31:52 by skimura           #+#    #+#             */
-/*   Updated: 2025/08/28 22:24:52 by skimura          ###   ########.fr       */
+/*   Updated: 2025/09/01 19:44:45 by skimura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo_bonus.h"
+#include "philo_bonus.h"
 
 static void	wait_start(t_philo *philo);
 

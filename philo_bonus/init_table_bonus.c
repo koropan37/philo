@@ -6,11 +6,11 @@
 /*   By: skimura <skimura@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 17:39:21 by skimura           #+#    #+#             */
-/*   Updated: 2025/08/28 22:21:21 by skimura          ###   ########.fr       */
+/*   Updated: 2025/09/04 20:02:04 by skimura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo_bonus.h"
+#include "philo_bonus.h"
 
 void	init_table(t_table *table)
 {
@@ -29,6 +29,4 @@ void	init_table(t_table *table)
 	sem_unlink("/print");
 	table->meal_sem = sem_open("/meal", O_CREAT, 600, 1);
 	sem_unlink("/meal");
-	table->start_sem = sem_open("/start", O_CREAT, 600, 1);
-	sem_unlink("/start");
 }

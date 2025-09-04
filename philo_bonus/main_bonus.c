@@ -6,11 +6,11 @@
 /*   By: skimura <skimura@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 20:30:30 by skimura           #+#    #+#             */
-/*   Updated: 2025/08/27 18:46:24 by skimura          ###   ########.fr       */
+/*   Updated: 2025/09/01 19:44:32 by skimura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo_bonus.h"
+#include "philo_bonus.h"
 
 int	main(int ac, char *av[])
 {

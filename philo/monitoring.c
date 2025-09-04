@@ -6,11 +6,11 @@
 /*   By: skimura <skimura@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 22:15:28 by skimura           #+#    #+#             */
-/*   Updated: 2025/08/27 18:35:31 by skimura          ###   ########.fr       */
+/*   Updated: 2025/09/04 19:58:40 by skimura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "philo.h"
 
 static int	judge_philo_dead(t_philo *philo, size_t time_to_die);
 static int	philo_dead(t_philo *philo);
@@ -23,12 +23,12 @@ void	*monitoring(void *p)
 	philo = (t_philo *)p;
 	while (1)
 	{
-		if (philo_dead(philo) != 0)
+		if (philo_dead(philo))
 		{
 			my_usleep(1);
 			break ;
 		}
-		if (eaten_all(philo) != 0)
+		if (eaten_all(philo))
 		{
 			pthread_mutex_lock(philo->print_mutex);
 			printf("/* All philo is full */\n");
@@ -44,7 +44,7 @@ static int	judge_philo_dead(t_philo *philo, size_t time_to_die)
 {
 	pthread_mutex_lock(philo->meal_mutex);
 	if (get_time_of_now() - philo->last_meal >= time_to_die
-		&& philo->eating == 0)
+		&& philo->eating == FINISH)
 		return (pthread_mutex_unlock(philo->meal_mutex), 1);
 	pthread_mutex_unlock(philo->meal_mutex);
 	return (0);
@@ -87,7 +87,7 @@ static int	eaten_all(t_philo *philo)
 	if (finished_eating == philo->num_of_philo)
 	{
 		pthread_mutex_lock(philo->dead_mutex);
-		*philo->dead = 1;
+		*philo->dead = FULL;
 		pthread_mutex_unlock(philo->dead_mutex);
 		return (1);
 	}
@@ -104,7 +104,7 @@ void	print_death(t_philo *philo, int id)
 	{
 		time = get_time_of_now() - philo->start_time;
 		printf("%zu %d is died\n", time, id);
-		*philo->dead = 1;
+		*philo->dead = DEAD;
 	}
 	pthread_mutex_unlock(philo->dead_mutex);
 	pthread_mutex_unlock(philo->print_mutex);

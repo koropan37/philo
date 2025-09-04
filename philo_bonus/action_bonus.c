@@ -6,13 +6,13 @@
 /*   By: skimura <skimura@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 20:33:18 by skimura           #+#    #+#             */
-/*   Updated: 2025/08/28 20:38:23 by skimura          ###   ########.fr       */
+/*   Updated: 2025/09/04 20:03:21 by skimura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo_bonus.h"
+#include "philo_bonus.h"
 
-static int	select_fork(t_philo *philo);
+static void	select_fork(t_philo *philo);
 
 void	print_philo(t_philo *philo, int id, char *str)
 {
@@ -20,7 +20,7 @@ void	print_philo(t_philo *philo, int id, char *str)
 
 	sem_wait(philo->dead_sem);
 	sem_wait(philo->print_sem);
-	if (*philo->dead == 1)
+	if (*philo->dead == DEAD)
 		return ;
 	time = get_time_of_now() - philo->start_time;
 	printf("%zu %d %s\n", time, id, str);
@@ -43,8 +43,7 @@ void	thinking(t_philo *philo)
 
 void	eating(t_philo *philo)
 {
-	if (select_fork(philo) == 1)
-		return ;
+	select_fork(philo);
 	sem_wait(philo->meal_sem);
 	print_philo(philo, philo->id, "is eating");
 	philo->last_meal = get_time_of_now();
@@ -55,7 +54,7 @@ void	eating(t_philo *philo)
 		sem_post(philo->meal_sem);
 		sem_post(philo->forks);
 		sem_post(philo->forks);
-		exit(0);
+		exit(EXIT_SUCCESS);
 	}
 	sem_post(philo->meal_sem);
 	my_usleep(philo->time_to_eat);
@@ -63,18 +62,17 @@ void	eating(t_philo *philo)
 	sem_post(philo->forks);
 }
 
-static int	select_fork(t_philo *philo)
+static void	select_fork(t_philo *philo)
 {
 	if (philo->num_of_philo == 1)
 	{
 		print_philo(philo, philo->id, "has taken a fork");
 		my_usleep(philo->time_to_die);
 		print_death(philo, philo->id);
-		return (1);
+		exit(EXIT_FAILURE);
 	}
 	sem_wait(philo->forks);
 	print_philo(philo, philo->id, "has taken a fork");
 	sem_wait(philo->forks);
 	print_philo(philo, philo->id, "has taken a fork");
-	return (0);
 }

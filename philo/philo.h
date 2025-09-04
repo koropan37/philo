@@ -6,7 +6,7 @@
 /*   By: skimura <skimura@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 16:59:36 by skimura           #+#    #+#             */
-/*   Updated: 2025/08/23 16:19:54 by skimura          ###   ########.fr       */
+/*   Updated: 2025/09/04 19:55:29 by skimura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@
 # include <unistd.h>
 
 # define PHILO_MAX 200
+# define DEAD 1
+# define EATING 1
+# define FINISH 0
+# define FULL 2
 
 typedef struct s_philo
 {

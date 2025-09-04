@@ -6,11 +6,11 @@
 /*   By: skimura <skimura@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 22:26:32 by skimura           #+#    #+#             */
-/*   Updated: 2025/08/20 19:22:17 by skimura          ###   ########.fr       */
+/*   Updated: 2025/09/01 19:40:35 by skimura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "philo.h"
 
 void		*routine(void *p);
 void		*monitoring(void *p);

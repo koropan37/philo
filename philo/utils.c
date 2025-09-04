@@ -6,11 +6,11 @@
 /*   By: skimura <skimura@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 20:46:50 by skimura           #+#    #+#             */
-/*   Updated: 2025/08/23 17:24:26 by skimura          ###   ########.fr       */
+/*   Updated: 2025/09/03 17:43:24 by skimura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "philo.h"
 
 int	ft_isdigit(int c)
 {
@@ -59,7 +59,7 @@ int	my_usleep(size_t ms)
 		now = get_time_of_now();
 		if (now - start >= ms)
 			break ;
-		usleep(100);
+		usleep(10);
 	}
 	return (0);
 }

@@ -6,11 +6,11 @@
 /*   By: skimura <skimura@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 18:45:40 by skimura           #+#    #+#             */
-/*   Updated: 2025/08/19 23:39:42 by skimura          ###   ########.fr       */
+/*   Updated: 2025/09/01 19:40:53 by skimura          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "philo.h"
 
 void	init_table(t_table *table, t_philo *philo)
 {
